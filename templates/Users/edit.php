@@ -24,6 +24,8 @@
                 <?php
                     echo $this->Form->control('email');
                     echo $this->Form->control('password');
+                    echo $this->Form->control('nombre');
+                    echo $this->Form->control('apellido');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

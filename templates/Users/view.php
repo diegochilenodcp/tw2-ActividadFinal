@@ -16,11 +16,19 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="users view content">
-            <h3><?= h($user->email) ?></h3>
+            <h3><?= h($user->nombre) ?></h3>
             <table>
                 <tr>
                     <th><?= __('Email') ?></th>
                     <td><?= h($user->email) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Nombre') ?></th>
+                    <td><?= h($user->nombre) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Apellido') ?></th>
+                    <td><?= h($user->apellido) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>

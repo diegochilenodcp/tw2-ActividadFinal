@@ -15,19 +15,21 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="bookmarks form content">
-            <?= $this->Form->create($bookmark) ?>
-            <fieldset>
-                <legend><?= __('Add Bookmark') ?></legend>
-                <?php
-                    echo $this->Form->control('user_id', ['options' => $users]);
-                    echo $this->Form->control('title');
-                    echo $this->Form->control('description');
-                    echo $this->Form->control('url');
-                    echo $this->Form->control('tags._ids', ['options' => $tags]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+                <?= $this->Form->create($bookmark, ['type' => 'file']) ?>
+                    <fieldset>
+                        <legend><?= __('Add Bookmark') ?></legend>
+                        <?php
+                            echo $this->Form->control('user_id', ['options' => $users]);
+                            echo $this->Form->control('title');
+                            echo $this->Form->control('description');
+                            echo $this->Form->control('url');
+                            echo $this->Form->control('image', ['type' => 'file']); // Campo de carga de imagen
+                            echo $this->Form->control('tags._ids', ['options' => $tags]);
+                        ?>
+                    </fieldset>
+                <?= $this->Form->button(__('Submit')) ?>
+                <?= $this->Form->end() ?>
+
         </div>
     </div>
 </div>

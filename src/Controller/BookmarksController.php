@@ -49,19 +49,35 @@ class BookmarksController extends AppController
      */
     public function add()
     {
-        $bookmark = $this->Bookmarks->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $bookmark = $this->Bookmarks->patchEntity($bookmark, $this->request->getData());
-            if ($this->Bookmarks->save($bookmark)) {
-                $this->Flash->success(__('The bookmark has been saved.'));
+    $bookmark = $this->Bookmarks->newEmptyEntity();
+    if ($this->request->is('post')) 
+    {
+        $bookmark = $this->Bookmarks->patchEntity($bookmark, $this->request->getData());
+        // Verificar si se ha subido un archivo de imagen
+        $image = $this->request->getData('image');
+        if (!empty($image)) 
+        {
+            // Generar un nombre único para el archivo
+            $imageName = uniqid() . '_' . $image->getClientFilename();
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The bookmark could not be saved. Please, try again.'));
+            // Mover la imagen al directorio deseado
+            $image->moveTo(WWW_ROOT . 'img' . DS . $imageName);
+
+            // Asignar la ruta del archivo al campo de imagen en la entidad
+            $bookmark->imagen = 'img/' . $imageName;
         }
-        $users = $this->Bookmarks->Users->find('list', ['limit' => 200])->all();
-        $tags = $this->Bookmarks->Tags->find('list', ['limit' => 200])->all();
-        $this->set(compact('bookmark', 'users', 'tags'));
+
+        // Guardar la entidad
+        if ($this->Bookmarks->save($bookmark)) {
+            $this->Flash->success(__('The bookmark has been saved.'));
+
+            return $this->redirect(['action' => 'index']);
+        }
+        $this->Flash->error(__('The bookmark could not be saved. Please, try again.'));
+    }
+    $users = $this->Bookmarks->Users->find('list', ['limit' => 200])->all();
+    $tags = $this->Bookmarks->Tags->find('list', ['limit' => 200])->all();
+    $this->set(compact('bookmark', 'users', 'tags'));
     }
 
     /**
@@ -72,23 +88,47 @@ class BookmarksController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
-    {
-        $bookmark = $this->Bookmarks->get($id, [
-            'contain' => ['Tags'],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $bookmark = $this->Bookmarks->patchEntity($bookmark, $this->request->getData());
-            if ($this->Bookmarks->save($bookmark)) {
-                $this->Flash->success(__('The bookmark has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+{
+    $bookmark = $this->Bookmarks->get($id, [
+        'contain' => ['Tags'],
+    ]);
+    
+    if ($this->request->is(['patch', 'post', 'put'])) {
+        $bookmark = $this->Bookmarks->patchEntity($bookmark, $this->request->getData());
+        
+        // Verificar si se ha subido una nueva imagen
+        $newImage = $this->request->getData('new_image');
+        if (!empty($newImage)) {
+            // Eliminar la imagen anterior si existe
+            $oldImage = $bookmark->imagen;
+            if (!empty($oldImage)) {
+                // Suponiendo que 'imagen' es la ruta de la imagen en el sistema de archivos
+                unlink(WWW_ROOT . $oldImage);
             }
-            $this->Flash->error(__('The bookmark could not be saved. Please, try again.'));
+            
+            // Generar un nombre único para el archivo
+            $imageName = uniqid() . '_' . $newImage->getClientFilename();
+
+            // Mover la nueva imagen al directorio deseado
+            $newImage->moveTo(WWW_ROOT . 'img' . DS . $imageName);
+
+            // Asignar la ruta del nuevo archivo al campo de imagen en la entidad
+            $bookmark->imagen = 'img' . DS . $imageName;
         }
-        $users = $this->Bookmarks->Users->find('list', ['limit' => 200])->all();
-        $tags = $this->Bookmarks->Tags->find('list', ['limit' => 200])->all();
-        $this->set(compact('bookmark', 'users', 'tags'));
+
+        // Guardar la entidad
+        if ($this->Bookmarks->save($bookmark)) {
+            $this->Flash->success(__('The bookmark has been saved.'));
+
+            return $this->redirect(['action' => 'index']);
+        }
+        $this->Flash->error(__('The bookmark could not be saved. Please, try again.'));
     }
+
+    $users = $this->Bookmarks->Users->find('list', ['limit' => 200])->all();
+    $tags = $this->Bookmarks->Tags->find('list', ['limit' => 200])->all();
+    $this->set(compact('bookmark', 'users', 'tags'));
+}
 
     /**
      * Delete method
@@ -109,23 +149,4 @@ class BookmarksController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
-        // ¡Dentro de la clase BookmarksController, agregamos el método 'tags'!
-    public function tags()
-    {
-        // ¡Obtenemos los segmentos de la URL pasados en la solicitud!
-        $tags = $this->request->getParam('pass');
-
-        // ¡Buscamos bookmarks etiquetados usando BookmarksTable!
-        $bookmarks = $this->Bookmarks->find('tagged', [
-            'tags' => $tags
-        ]);
-
-        // ¡Pasamos variables a la vista para hacerla aún más bonita!
-        $this->set([
-            'bookmarks' => $bookmarks,
-            'tags' => $tags
-        ]);
-    }
-
 }

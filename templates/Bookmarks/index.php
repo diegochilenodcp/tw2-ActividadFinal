@@ -16,6 +16,7 @@
                     <th><?= $this->Paginator->sort('title') ?></th>
                     <th><?= $this->Paginator->sort('created') ?></th>
                     <th><?= $this->Paginator->sort('modified') ?></th>
+                    <th><?= $this->Paginator->sort('imagen') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -23,10 +24,17 @@
                 <?php foreach ($bookmarks as $bookmark): ?>
                 <tr>
                     <td><?= $this->Number->format($bookmark->id) ?></td>
-                    <td><?= $bookmark->has('user') ? $this->Html->link($bookmark->user->email, ['controller' => 'Users', 'action' => 'view', $bookmark->user->id]) : '' ?></td>
+                    <td><?= $bookmark->has('user') ? $this->Html->link($bookmark->user->nombre, ['controller' => 'Users', 'action' => 'view', $bookmark->user->id]) : '' ?></td>
                     <td><?= h($bookmark->title) ?></td>
                     <td><?= h($bookmark->created) ?></td>
                     <td><?= h($bookmark->modified) ?></td>
+                    <td>
+                        <?php if (!empty($bookmark->imagen)): ?>
+                            <img src="<?= $this->Url->webroot($bookmark->imagen) ?>" alt="Logo" style="max-height: 60px;">
+                        <?php else: ?>
+                            <?= __('No Image') ?>
+                        <?php endif; ?>
+                    </td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $bookmark->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $bookmark->id]) ?>
@@ -48,3 +56,4 @@
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
+

@@ -20,11 +20,15 @@
             <table>
                 <tr>
                     <th><?= __('User') ?></th>
-                    <td><?= $bookmark->has('user') ? $this->Html->link($bookmark->user->email, ['controller' => 'Users', 'action' => 'view', $bookmark->user->id]) : '' ?></td>
+                    <td><?= $bookmark->has('user') ? $this->Html->link($bookmark->user->nombre, ['controller' => 'Users', 'action' => 'view', $bookmark->user->id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Title') ?></th>
                     <td><?= h($bookmark->title) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Imagen') ?></th>
+                    <td><?= h($bookmark->imagen) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>
@@ -49,6 +53,12 @@
                 <strong><?= __('Url') ?></strong>
                 <blockquote>
                     <?= $this->Text->autoParagraph(h($bookmark->url)); ?>
+                </blockquote>
+            </div>
+            <div class="text">
+                <strong><?= __('Imagen') ?></strong>
+                <blockquote>
+                    <img src="<?= $this->Url->webroot($bookmark->imagen) ?>" alt="Logo" style="max-height: 60px;">
                 </blockquote>
             </div>
             <div class="related">

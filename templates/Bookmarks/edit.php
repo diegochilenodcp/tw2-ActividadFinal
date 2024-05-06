@@ -28,6 +28,7 @@
                     echo $this->Form->control('title');
                     echo $this->Form->control('description');
                     echo $this->Form->control('url');
+                    echo $this->Form->control('image', ['type' => 'file']); // Campo de carga de imagen
                     echo $this->Form->control('tags._ids', ['options' => $tags]);
                 ?>
             </fieldset>

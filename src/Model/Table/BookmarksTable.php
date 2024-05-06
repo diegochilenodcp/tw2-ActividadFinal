@@ -84,6 +84,16 @@ class BookmarksTable extends Table
             ->scalar('url')
             ->allowEmptyString('url');
 
+        $validator
+            ->scalar('imagen')
+            ->maxLength('imagen', 255)
+            ->allowEmptyFile('imagen');
+
+            $validator
+            ->scalar('new_image')
+            ->maxLength('new_image', 255)
+            ->allowEmptyFile('new_image');    
+
         return $validator;
     }
 
@@ -100,23 +110,5 @@ class BookmarksTable extends Table
 
         return $rules;
     }
-
-    public function findTagged(Query $query, array $options)
-    {
-    // Implementación del método findTagged
-    $bookmarks = $this->find()
-        ->select(['id', 'url', 'title', 'description']);
-
-    if (empty($options['tags'])) {
-        $bookmarks
-            ->leftJoinWith('Tags')
-            ->where(['Tags.title IS' => null]);
-    } else {
-        $bookmarks
-            ->innerJoinWith('Tags')
-            ->where(['Tags.title IN ' => $options['tags']]);
-    }
-
-    return $bookmarks->group(['Bookmarks.id']);
-    }
 }
+

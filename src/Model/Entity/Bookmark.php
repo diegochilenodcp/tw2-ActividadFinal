@@ -15,6 +15,7 @@ use Cake\ORM\Entity;
  * @property string|null $url
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
+ * @property string|null $imagen
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Tag[] $tags
@@ -37,6 +38,7 @@ class Bookmark extends Entity
         'url' => true,
         'created' => true,
         'modified' => true,
+        'imagen' => true,
         'user' => true,
         'tags' => true,
     ];

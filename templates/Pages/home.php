@@ -73,13 +73,13 @@ endif;
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="logoupds.png"><img src="<?= $this->Url->webroot('img/logomio.jpeg') ?>" alt="Logo" style="max-height: 60px;"></a>
+            <a class="navbar-brand" href="<?= $this->Url->webroot('img/logomio.jpeg') ?>"><img src="<?= $this->Url->webroot('img/logomio.jpeg') ?>" alt="Logo" style="max-height: 60px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Inicio</a>
                     </li>
                     <li class="nav-item">
@@ -91,25 +91,33 @@ endif;
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contacto</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $this->Url->build(['controller' => 'Bookmarks', 'action' => 'index']) ?>">Marcadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $this->Url->build(['controller' => 'Tags', 'action' => 'index']) ?>">Tags</a>
+                    </li>
                 </ul>
                 <!-- Inicio de sesión / Cierre de sesión -->
                 <div class="navbar-login">
                     <?php if ($this->getRequest()->getSession()->check('Auth.User')): ?>
                         <!-- Verificar si el usuario está autenticado -->
-                        Bienvenido, <?= $this->getRequest()->getSession()->read('Auth.User.email'); ?> |
+                        <p class="navbar-text">Bienvenido, <?= $this->getRequest()->getSession()->read('Auth.User.nombre') . ' ' . $this->getRequest()->getSession()->read('Auth.User.apellido'); ?></p>
                         <!-- Mostrar saludo y enlace de deslogueo -->
-                        <?= $this->Html->link('Cerrar Sesión', ['controller' => 'Users', 'action' => 'logout']); ?>
+                        <?= $this->Html->link('Cerrar Sesión', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'btn btn-outline-primary']); ?>
                     <?php else: ?>
                         <!-- Si el usuario no está autenticado -->
-                        <?= $this->Html->link('Ingresar', ['controller' => 'Users', 'action' => 'login']); ?> |
-                        <?= $this->Html->link('Registrarse', ['controller' => 'Users', 'action' => 'add']); ?>
+                        <?= $this->Html->link('Ingresar', ['controller' => 'Users', 'action' => 'login'], ['class' => 'btn btn-outline-primary']); ?>
+                        <?= $this->Html->link('Registrarse', ['controller' => 'Users', 'action' => 'add'], ['class' => 'btn btn-outline-primary']); ?>
                     <?php endif; ?>
                 </div>
             </div>
         </div>
     </nav>
 </header>
-
 <!-- Hero Section -->
 <section class="hero">
     <div class="container">

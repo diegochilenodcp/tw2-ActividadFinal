@@ -42,7 +42,7 @@ class UsersTable extends Table
         parent::initialize($config);
 
         $this->setTable('users');
-        $this->setDisplayField('email');
+        $this->setDisplayField('nombre');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
@@ -70,6 +70,18 @@ class UsersTable extends Table
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
             ->notEmptyString('password');
+
+        $validator
+            ->scalar('nombre')
+            ->maxLength('nombre', 255)
+            ->requirePresence('nombre', 'create')
+            ->notEmptyString('nombre');
+
+        $validator
+            ->scalar('apellido')
+            ->maxLength('apellido', 255)
+            ->requirePresence('apellido', 'create')
+            ->notEmptyString('apellido');
 
         return $validator;
     }
