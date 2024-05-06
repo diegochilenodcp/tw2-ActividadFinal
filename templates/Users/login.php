@@ -1,5 +1,5 @@
-<div class="container text-right">
-<div class="container text-right">
+
+<div class="container text-center">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card border-primary shadow-lg rounded">
@@ -28,4 +28,4 @@
         </div>
     </div>
 </div>
-</div>
+

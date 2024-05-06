@@ -1,10 +1,10 @@
 <h1>
     <!-- ¡Mostramos el título de la página con un toque divertido! -->
-    Bookmarks tagged with <?= $this->Text->toList(h($tags)) ?>
+    Marcadores etiquetados con <?= $this->Text->toList(h($tags)) ?>
 </h1>
 
 <section>
-    <!-- Iteramos sobre los bookmarks y los mostramos con estilo -->
+    <!-- Iteramos sobre los marcadores y los mostramos con estilo -->
     <?php foreach ($bookmarks as $bookmark): ?>
         <article>
             <!-- ¡Usamos el HtmlHelper para crear un enlace bonito! -->

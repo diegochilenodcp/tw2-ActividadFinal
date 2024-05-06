@@ -5,8 +5,8 @@
  */
 ?>
 <div class="users index content">
-    <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Users') ?></h3>
+    <?= $this->Html->link(__('Nuevo Usuario'), ['action' => 'add'], ['class' => 'button float-right']) ?> <!-- Se traduce el texto 'New User' a 'Nuevo Usuario' -->
+    <h3><?= __('Usuarios') ?></h3> <!-- Se traduce el texto 'Users' a 'Usuarios' -->
     <div class="table-responsive">
         <table>
             <thead>
@@ -17,7 +17,7 @@
                     <th><?= $this->Paginator->sort('modified') ?></th>
                     <th><?= $this->Paginator->sort('nombre') ?></th>
                     <th><?= $this->Paginator->sort('apellido') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th class="actions"><?= __('Acciones') ?></th> <!-- Se traduce el texto 'Actions' a 'Acciones' -->
                 </tr>
             </thead>
             <tbody>
@@ -30,9 +30,9 @@
                     <td><?= h($user->nombre) ?></td>
                     <td><?= h($user->apellido) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                        <?= $this->Html->link(__('Ver'), ['action' => 'view', $user->id]) ?> <!-- Se traduce el texto 'View' a 'Ver' -->
+                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $user->id]) ?> <!-- Se traduce el texto 'Edit' a 'Editar' -->
+                        <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $user->id], ['confirm' => __('¿Estás seguro de que deseas eliminar # {0}?', $user->id)]) ?> <!-- Se traduce el texto 'Delete' a 'Eliminar' y la confirmación a español -->
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -41,12 +41,12 @@
     </div>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('primero')) ?> <!-- Se traduce el texto 'first' a 'primero' -->
+            <?= $this->Paginator->prev('< ' . __('anterior')) ?> <!-- Se traduce el texto 'previous' a 'anterior' -->
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('siguiente') . ' >') ?> <!-- Se traduce el texto 'next' a 'siguiente' -->
+            <?= $this->Paginator->last(__('último') . ' >>') ?> <!-- Se traduce el texto 'last' a 'último' -->
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de un total de {{count}}')) ?></p> <!-- Se traduce el texto 'Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total' a español -->
     </div>
 </div>
